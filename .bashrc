@@ -38,6 +38,8 @@ if [ "$OS" = windows ]; then
     # IIS Express
     export PATH=$PATH:"/c/Program Files/IIS Express"
 fi
+# Global npm packages installed at ~/.npm-global
+export PATH=$HOME/.npm-global/bin:$PATH
 
 # Aliases
 alias ll='ls -al'
