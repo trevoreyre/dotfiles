@@ -1,3 +1,5 @@
 [user]
 	name = Trevor Eyre
 	email = trevoreyre@gmail.com
+[alias]
+	acp = "!f() { git add -A && git commit --allow-empty-message -m \"$@\" && git push; }; f"
