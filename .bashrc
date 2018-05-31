@@ -20,19 +20,19 @@ shopt -s checkwinsize
 # Detect OS.
 # Reference: https://stackoverflow.com/questions/3466166
 if [[ $(uname -s) == Darwin* ]]; then
-    OS="mac"
+    OSNAME="mac"
 elif [[ $(uname -s) == Linux* ]]; then
-    OS="linux"
+    OSNAME="linux"
 elif [[ $(uname -s) == MINGW* ]]; then
-    OS="windows"
+    OSNAME="windows"
 elif [[ $(uname -s) == CYGWIN* ]]; then
-    OS="windows"
+    OSNAME="windows"
 elif [[ $(uname -s) == MSYS* ]]; then
-    OS="windows"
+    OSNAME="windows"
 fi
 
 # Extend path
-if [ "$OS" = windows ]; then
+if [ "$OSNAME" = windows ]; then
     # MSBuild (Visual Studio 2017)
     export PATH=$PATH:"/c/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin"
     # IIS Express
@@ -84,4 +84,10 @@ if [ "$COLOR" = yes ]; then
 else
     PS1="\w\$(get_git_branch) > "
 fi
+
+# Delete variables needed for configuration
+unset OSNAME
+unset GREEN
+unset BLUE
+unset ENDCOLOR
 unset COLOR
