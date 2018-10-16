@@ -53,6 +53,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+# Docker aliases
+alias dps='docker ps'
+dbash() { docker exec -i -t "$1" /bin/bash; }
+
 # For commiting config files to git repo
 alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
