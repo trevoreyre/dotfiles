@@ -55,7 +55,8 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 # Docker aliases
 alias dps='docker ps'
-dbash() { docker exec -i -t "$1" /bin/bash; }
+alias dstop='docker container stop'
+dbash() { docker exec -i -t "$1" bash; }
 
 # For commiting config files to git repo
 alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
