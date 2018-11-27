@@ -56,6 +56,7 @@ fi
 # Docker aliases
 alias dps='docker ps'
 alias dstop='docker container stop'
+alias dup='docker-compose up'
 dbash() { docker exec -i -t "$1" bash; }
 
 # For commiting config files to git repo
