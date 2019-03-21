@@ -29,7 +29,6 @@ export NVM_DIR="$HOME/.nvm"
 alias ll='ls -al'
 alias la='ls -A'
 alias l='ls -C'
-alias vmware='open -n /Applications/VMware\ Horizon\ Client.app'
 # Enable color support of ls and grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
