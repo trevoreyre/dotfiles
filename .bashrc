@@ -17,29 +17,13 @@ shopt -s histappend
 # Check the window size after each command and resize if necessary
 shopt -s checkwinsize
 
-# Detect OS.
-# Reference: https://stackoverflow.com/questions/3466166
-if [[ $(uname -s) == Darwin* ]]; then
-    OSNAME="mac"
-elif [[ $(uname -s) == Linux* ]]; then
-    OSNAME="linux"
-elif [[ $(uname -s) == MINGW* ]]; then
-    OSNAME="windows"
-elif [[ $(uname -s) == CYGWIN* ]]; then
-    OSNAME="windows"
-elif [[ $(uname -s) == MSYS* ]]; then
-    OSNAME="windows"
-fi
-
-# Extend path
-if [ "$OSNAME" = windows ]; then
-    # MSBuild (Visual Studio 2017)
-    export PATH=$PATH:"/c/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin"
-    # IIS Express
-    export PATH=$PATH:"/c/Program Files/IIS Express"
-fi
 # Global npm packages installed at ~/.npm-global
-export PATH=$HOME/.npm-global/bin:$HOME/.npm-global:$PATH
+# export PATH=$HOME/.npm-global/bin:$HOME/.npm-global:$PATH
+
+# NVM stuff
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Aliases
 alias ll='ls -al'
@@ -59,8 +43,8 @@ alias dstop='docker container stop'
 alias dup='docker-compose up'
 dbash() { docker exec -i -t "$1" bash; }
 
-# For commiting config files to git repo
-alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+# For commiting dotfiles to git repo
+alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 # Color variables
 GREEN='\[\033[01;32m\]'
