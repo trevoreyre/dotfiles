@@ -41,6 +41,7 @@ fi
 alias dps='docker ps'
 alias dstop='docker container stop'
 alias dup='docker-compose up'
+alias dbuild='docker-compose build'
 dbash() { docker exec -i -t "$1" bash; }
 
 # For commiting dotfiles to git repo
