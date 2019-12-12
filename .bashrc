@@ -26,9 +26,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Aliases
-alias ll='ls -al'
-alias la='ls -A'
-alias l='ls -C'
+alias ll='ls -AlG'
+alias la='ls -AG'
+alias l='ls -CG'
 # Enable color support of ls and grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
