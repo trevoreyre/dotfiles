@@ -17,13 +17,17 @@ shopt -s histappend
 # Check the window size after each command and resize if necessary
 shopt -s checkwinsize
 
-# Global npm packages installed at ~/.npm-global
-# export PATH=$HOME/.npm-global/bin:$HOME/.npm-global:$PATH
-
-# NVM stuff
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Set up NVM, if installed. Otherwise, set up global npm/yarn install paths.
+NVM_DIR="$HOME/.nvm"
+NPM_DIR="$HOME/.npm-global"
+if [ -d $NVM_DIR ]; then
+    export NVM_DIR=$NVM_DIR
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load nvm bash_completion
+else
+    export PREFIX=$NPM_DIR
+    export PATH="$NPM_DIR/bin:$NPM_DIR:$PATH"
+fi
 
 # Aliases
 alias ll='ls -AlG'
@@ -79,7 +83,8 @@ else
 fi
 
 # Delete variables needed for configuration
-unset OSNAME
+unset NVM_DIR
+unset NPM_DIR
 unset GREEN
 unset BLUE
 unset ENDCOLOR
