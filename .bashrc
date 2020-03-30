@@ -82,6 +82,9 @@ else
     PS1="\w\$(get_git_branch) > "
 fi
 
+# Add completions
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
 # Delete variables needed for configuration
 unset NVM_DIR
 unset NPM_DIR
