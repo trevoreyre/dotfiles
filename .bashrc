@@ -85,6 +85,9 @@ fi
 # Add completions
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
+# Add environment files
+[[ -r "$HOME/.bash_env" ]] && . "$HOME/.bash_env"
+
 # Delete variables needed for configuration
 unset NVM_DIR
 unset NPM_DIR
