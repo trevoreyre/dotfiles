@@ -60,7 +60,7 @@ ENDCOLOR='\[\033[00m\]'
 
 # Get git branch if in git repository
 get_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
 # Set a fancy prompt
@@ -75,11 +75,11 @@ else
     COLOR=
 fi
 
-# Set prompt. Ex: /working/directory [git-branch] >
+# Set prompt. Ex: /working/directory git-branch
 if [ "$COLOR" = yes ]; then
-    PS1="$BLUE\w$GREEN\$(get_git_branch)$BLUE > $ENDCOLOR"
+    PS1="$BLUE\w$GREEN\$(get_git_branch) $ENDCOLOR"
 else
-    PS1="\w\$(get_git_branch) > "
+    PS1="\w\$(get_git_branch) "
 fi
 
 # Add completions
