@@ -3,5 +3,8 @@
 	email = trevoreyre@gmail.com
 [alias]
 	acp = "!f() { git add -A && git commit --allow-empty-message -m \"$@\" && git push; }; f"
+	ignore = update-index --skip-worktree
+	unignore = update-index --no-skip-worktree
+	ignored = !git ls-files -v | grep \"^S\"
 [core]
 	excludesfile = ~/.gitignore
