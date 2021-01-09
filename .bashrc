@@ -30,25 +30,43 @@ else
 fi
 
 # Aliases
-alias ll='ls -AlG'
-alias la='ls -AG'
-alias l='ls -CG'
-# Enable color support of ls and grep
+ls() {
+    if [[ $@ == "node_modules" ]]; then
+        echo "finding all node_modules"
+        command find . -name "node_modules" -type d -prune -print | xargs du -chs
+    else
+        command ls --color=auto -AG "$@"
+    fi
+}
+rm() {
+    if [[ $@ == "node_modules" ]]; then
+        echo "removing all node_modules"
+        command find . -name "node_modules" -type d -prune -print -exec rm -rf '{}' \;
+    else
+        command rm "$@"
+    fi
+}
+# Enable color support of grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 # Docker aliases
-alias dps='docker ps'
-alias dstop='docker container stop'
-alias dup='docker-compose up'
-alias ddown='docker-compose down'
-alias dbuild='docker-compose build'
-dbash() { docker exec -i -t "$1" bash; }
-dsh() { docker exec -i -t "$1" sh; }
+docker() {
+    if [[ $1 == "ls" ]]; then
+        command docker ps "${@: 2}"
+    elif [[ $1 == "bash" ]]; then
+        command docker exec -i -t "$2" bash;
+    elif [[ $1 == "sh" ]]; then
+        command docker exec -i -t "$2" sh
+    else
+        command docker "$@"
+    fi
+}
+alias dc='docker-compose'
+alias dls='docker ps'
 
 # For commiting dotfiles to git repo
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
