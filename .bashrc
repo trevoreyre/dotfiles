@@ -12,10 +12,10 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # Append to the history file, don't overwrite it
-shopt -s histappend
+# shopt -s histappend
 
 # Check the window size after each command and resize if necessary
-shopt -s checkwinsize
+# shopt -s checkwinsize
 
 # Set up NVM, if installed. Otherwise, set up global npm/yarn install paths.
 NVM_DIR="$HOME/.nvm"
@@ -35,7 +35,7 @@ ls() {
         echo "finding all node_modules"
         command find . -name "node_modules" -type d -prune -print | xargs du -chs
     else
-        command ls --color=auto -AG "$@"
+        command ls -AG "$@"
     fi
 }
 rm() {
