@@ -65,7 +65,7 @@ docker() {
         command docker "$@"
     fi
 }
-alias dc='docker-compose'
+alias dc='docker compose'
 alias dls='docker ps'
 
 # For commiting dotfiles to git repo
