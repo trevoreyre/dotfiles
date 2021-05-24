@@ -30,14 +30,7 @@ else
 fi
 
 # Aliases
-ls() {
-    if [[ $@ == "node_modules" ]]; then
-        echo "finding all node_modules"
-        command find . -name "node_modules" -type d -prune -print | xargs du -chs
-    else
-        command ls -AG "$@"
-    fi
-}
+alias ls='ls -AG'
 rm() {
     if [[ $@ == "node_modules" ]]; then
         echo "removing all node_modules"
@@ -49,6 +42,7 @@ rm() {
 # Enable color support of grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto -AG'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
