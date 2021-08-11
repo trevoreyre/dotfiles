@@ -8,3 +8,5 @@
 	ignored = !git ls-files -v | grep \"^S\"
 [core]
 	excludesfile = ~/.gitignore
+[pull]
+	rebase = false
