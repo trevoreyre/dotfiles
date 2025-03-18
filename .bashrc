@@ -17,14 +17,30 @@ HISTFILESIZE=2000
 # Check the window size after each command and resize if necessary
 # shopt -s checkwinsize
 
-# Set up NVM, if installed. Otherwise, set up global npm/yarn install paths.
+# Set up the correct Node version manager.
+VOLTA_HOME="$HOME/.volta"
 NVM_DIR="$HOME/.nvm"
 NPM_DIR="$HOME/.npm-global"
-if [ -d $NVM_DIR ]; then
+
+if [ -d $VOLTA_HOME ]; then
+    # Volta
+    echo "Loading volta"
+    export VOLTA_HOME=$VOLTA_HOME
+    export PATH="$VOLTA_HOME/bin:$PATH"
+elif command -v fnm 2>&1 >/dev/null; then
+    # Fast Node Manager (fnm)
+    echo "Loading fnm"
+    eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell bash)"
+    fnm completions --shell bash
+elif [ -d $NVM_DIR ]; then
+    # Node Version Manager (nvm)
+    echo "Loading nvm"
     export NVM_DIR=$NVM_DIR
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load nvm bash_completion
 else
+    # Vanilla npm
+    echo "Setting up global npm"
     export PREFIX=$NPM_DIR
     export PATH="$NPM_DIR/bin:$NPM_DIR:$PATH"
 fi
@@ -59,7 +75,13 @@ docker() {
         command docker "$@"
     fi
 }
-alias dc='docker compose'
+dc() {
+    if [[ $1 == "rebuild" ]]; then
+        command docker compose build --pull
+    else
+        command docker compose "$@"
+    fi
+}
 alias dls='docker ps'
 
 # For commiting dotfiles to git repo
@@ -68,6 +90,7 @@ alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 # Color variables
 GREEN='\[\033[01;32m\]'
 BLUE='\[\033[01;34m\]'
+PURPLE='\[\033[01;35m\]'
 ENDCOLOR='\[\033[00m\]'
 
 # Get git branch if in git repository
@@ -89,13 +112,18 @@ fi
 
 # Set prompt. Ex: /working/directory git-branch
 if [ "$COLOR" = yes ]; then
-    PS1="$BLUE\w$GREEN\$(get_git_branch) $ENDCOLOR"
+    if [ "$PLATFORM" = docker ]; then
+        PS1="$PURPLE\w$GREEN\$(get_git_branch) $ENDCOLOR"
+    else
+        PS1="$BLUE\w$GREEN\$(get_git_branch) $ENDCOLOR"
+    fi
 else
     PS1="\w\$(get_git_branch) "
 fi
 
 # Add completions
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "~/.gitcompletion.bash" ]] && . "~/.gitcompletion.bash"
 
 # Add environment files
 [[ -r "$HOME/.bash_env" ]] && . "$HOME/.bash_env"
@@ -105,5 +133,6 @@ unset NVM_DIR
 unset NPM_DIR
 unset GREEN
 unset BLUE
+unset PURPLE
 unset ENDCOLOR
 unset COLOR
