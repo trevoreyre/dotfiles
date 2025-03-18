@@ -31,13 +31,17 @@ elif command -v fnm 2>&1 >/dev/null; then
     # Fast Node Manager (fnm)
     echo "Loading fnm"
     eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell bash)"
-    fnm completions --shell bash
+    # Load fnm bash completions
+    if [ ! -e $HOME/.fnm-bash-completions ]; then
+        fnm completions --shell bash > $HOME/.fnm-bash-completions
+    fi
+    source $HOME/.fnm-bash-completions
 elif [ -d $NVM_DIR ]; then
     # Node Version Manager (nvm)
     echo "Loading nvm"
     export NVM_DIR=$NVM_DIR
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load nvm bash_completion
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # Load nvm
+    [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # Load nvm bash completions
 else
     # Vanilla npm
     echo "Setting up global npm"
