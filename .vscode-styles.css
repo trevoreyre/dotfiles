@@ -1,0 +1,101 @@
+:root {
+  --padding-traffic-lights: 68px;
+}
+
+/* Clean up sidebar title, and remove actions */
+.monaco-workbench .part.sidebar .title-label {
+  padding-left: 5px;
+}
+
+.monaco-workbench .part.sidebar .title-actions {
+  display: none;
+}
+
+/* Add a border between editors */
+.monaco-workbench
+  .part.editor
+  .monaco-split-view2.horizontal
+  > .monaco-scrollable-element
+  > .split-view-container
+  > .split-view-view:not(:first-child) {
+  border-left: 1px solid var(--vscode-panel-border);
+}
+
+.monaco-workbench
+  .part.editor
+  .monaco-split-view2.vertical
+  > .monaco-scrollable-element
+  > .split-view-container
+  > .split-view-view:not(:first-child) {
+  border-top: 1px solid var(--vscode-panel-border);
+}
+
+/* Force sticky header to take full width, so scroll area doesn't have awkward box shadows */
+.monaco-editor .sticky-widget {
+  width: 100% !important;
+}
+
+/* Bump find/replace widget down so the box shadow looks better */
+.monaco-editor .find-widget.find-widget.visible {
+  transform: translateY(16px);
+  opacity: 1;
+}
+
+.monaco-editor .find-widget.find-widget {
+  transform: translateY(4px);
+  opacity: 0;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+/* Bump terminal find/replace widget down as well */
+.monaco-workbench .simple-find-part.visible-transition {
+  top: 8px;
+  opacity: 1;
+}
+
+.monaco-workbench .simple-find-part {
+  top: 0;
+  opacity: 0;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  transition: top 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+/* Remove selection outline when you click on Explorer panel */
+.part.sidebar .monaco-list::before {
+  visibility: hidden;
+}
+
+/*
+ * Everything from here down only works if the Custom UI Style extension
+ * is enabled. Otherwise, remove these styles.
+ */
+
+/* Make room for traffic lights in side bar */
+.monaco-workbench .part.sidebar > .title > .title-label {
+  padding-left: var(--padding-traffic-lights);
+}
+
+/* Make title bars draggable to move the window */
+.monaco-workbench .part.sidebar .composite.title,
+.monaco-workbench .part.editor .title .label-container,
+.monaco-workbench .part.editor .editor-group-container.empty {
+  -webkit-app-region: drag;
+}
+
+/* Only first editor should have extra left-padding to make room for traffic lights */
+.monaco-workbench.nosidebar
+  .part.editor
+  > .content
+  .split-view-view:first-child
+  .editor-group-container
+  > .title:not(.tabs) {
+  padding-left: var(--padding-traffic-lights);
+}
+
+/* Make room for traffic lights when bottom panel is maximized */
+.monaco-workbench.nomaineditorarea.nosidebar .part.panel.bottom .composite.title {
+  padding-left: var(--padding-traffic-lights);
+}
