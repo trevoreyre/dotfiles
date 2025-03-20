@@ -1,6 +1,6 @@
 :root {
   --padding-traffic-lights: 68px;
-  --padding-title-bar-controls: 124px;
+  --padding-title-bar-controls: 148px;
 }
 
 /* Clean up sidebar title, and remove actions */
@@ -74,7 +74,7 @@
  * is enabled. Otherwise, remove these styles.
  */
 
-/* Make room for traffic lights in side bar */
+/* macOS — Make room for traffic lights in side bar */
 .monaco-workbench.mac .part.sidebar > .title > .title-label {
   padding-left: var(--padding-traffic-lights);
 }
@@ -96,7 +96,22 @@
   padding-left: var(--padding-traffic-lights);
 }
 
-/* Make room for traffic lights when bottom panel is maximized */
+/* macOS — Make room for traffic lights when bottom panel is maximized */
 .monaco-workbench.mac.nomaineditorarea.nosidebar .part.panel.bottom .composite.title {
   padding-left: var(--padding-traffic-lights);
+}
+
+/* Windows — Make room for title bar controls in last editor */
+.monaco-workbench.windows
+  .part.editor
+  > .content
+  .split-view-view:last-child
+  .editor-group-container
+  > .title:not(.tabs) {
+  padding-right: var(--padding-title-bar-controls);
+}
+
+/* Windows - Make room for title bar controls when bottom panel is maximized */
+.monaco-workbench.windows.nomaineditorarea .part.panel.bottom .composite.title {
+  padding-right: var(--padding-title-bar-controls);
 }
