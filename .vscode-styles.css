@@ -1,6 +1,6 @@
 :root {
-  --padding-traffic-lights: 68px;
-  --padding-title-bar-controls: 148px;
+  --padding-macos-traffic-lights: 65px;
+  --padding-windows-title-bar-controls: 148px;
 }
 
 /* Add a border between editors */
@@ -62,14 +62,17 @@
   visibility: hidden;
 }
 
-/* Fix alignment of sidebar title and activity bar */
+/* Fix alignment of sidebar title */
 .monaco-workbench .part.sidebar > .title {
   padding-left: 0;
 }
+
+/* Fix alignment of sidebar activity bar */
 .monaco-workbench .part.sidebar > .header-or-footer {
   padding-left: 8px;
   padding-right: 8px;
 }
+
 .monaco-workbench .part.sidebar > .header-or-footer .actions-container {
   gap: 8px;
 }
@@ -95,8 +98,13 @@
 }
 
 /* macOS — Make room for traffic lights in side bar */
-.monaco-workbench.mac .part.sidebar > .title > .title-label {
-  padding-left: var(--padding-traffic-lights);
+.monaco-workbench.mac .part.sidebar:not(:has(> .header)) > .title > .title-label {
+  padding-left: calc(var(--padding-macos-traffic-lights) + 20px);
+}
+
+/* macOS — Make room for traffic lights in activity bar when positioned top of side bar */
+.monaco-workbench.mac .part.sidebar > .header {
+  padding-left: calc(var(--padding-macos-traffic-lights) + 17px);
 }
 
 /* macOS — Make room for traffic lights in first editor */
@@ -106,12 +114,12 @@
   .split-view-view:first-child
   .editor-group-container
   > .title:not(.tabs) {
-  padding-left: var(--padding-traffic-lights);
+  padding-left: var(--padding-macos-traffic-lights);
 }
 
 /* macOS — Make room for traffic lights when bottom panel is maximized */
 .monaco-workbench.mac.nomaineditorarea.nosidebar .part.panel.bottom .composite.title {
-  padding-left: var(--padding-traffic-lights);
+  padding-left: calc(var(--padding-macos-traffic-lights) + 10px);
 }
 
 /* Windows — Make room for title bar controls in last editor */
@@ -121,10 +129,10 @@
   .split-view-view:last-child
   .editor-group-container
   > .title:not(.tabs) {
-  padding-right: var(--padding-title-bar-controls);
+  padding-right: var(--padding-windows-title-bar-controls);
 }
 
 /* Windows - Make room for title bar controls when bottom panel is maximized */
 .monaco-workbench.windows.nomaineditorarea .part.panel.bottom .composite.title {
-  padding-right: var(--padding-title-bar-controls);
+  padding-right: var(--padding-windows-title-bar-controls);
 }
