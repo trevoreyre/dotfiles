@@ -3,15 +3,6 @@
   --padding-title-bar-controls: 148px;
 }
 
-/* Clean up sidebar title, and remove actions */
-.monaco-workbench .part.sidebar .title-label {
-  padding-left: 5px;
-}
-
-.monaco-workbench .part.sidebar .title-actions {
-  display: none;
-}
-
 /* Add a border between editors */
 .monaco-workbench
   .part.editor
@@ -40,6 +31,7 @@
 .monaco-editor .find-widget.find-widget.visible {
   transform: translateY(16px);
   opacity: 1;
+  pointer-events: auto;
 }
 
 .monaco-editor .find-widget.find-widget {
@@ -48,6 +40,7 @@
   border: 1px solid var(--vscode-panel-border);
   border-radius: 4px;
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  pointer-events: none;
 }
 
 /* Bump terminal find/replace widget down as well */
@@ -69,24 +62,44 @@
   visibility: hidden;
 }
 
+/* Fix alignment of sidebar title and activity bar */
+.monaco-workbench .part.sidebar > .title {
+  padding-left: 0;
+}
+.monaco-workbench .part.sidebar > .header-or-footer {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.monaco-workbench .part.sidebar > .header-or-footer .actions-container {
+  gap: 8px;
+}
+
 /*
  * Everything from here down only works if the Custom UI Style extension
- * is enabled. Otherwise, remove these styles.
+ * is enabled to hide the default title bar. Otherwise, remove these styles.
  */
+
+/* Make title bars draggable to move the window */
+.monaco-workbench .part.sidebar .title .title-label,
+.monaco-workbench .part.editor .title .label-container,
+.monaco-workbench .part.editor .editor-group-container.empty {
+  -webkit-app-region: drag;
+}
+
+/* Expand draggable title label in side bar, without shrinking actions */
+.monaco-workbench .part.sidebar .composite.title .title-label {
+  flex: 1;
+}
+.monaco-workbench .part.sidebar .composite.title .title-actions {
+  flex: 0 0 0%;
+}
 
 /* macOS — Make room for traffic lights in side bar */
 .monaco-workbench.mac .part.sidebar > .title > .title-label {
   padding-left: var(--padding-traffic-lights);
 }
 
-/* Make title bars draggable to move the window */
-.monaco-workbench .part.sidebar .composite.title,
-.monaco-workbench .part.editor .title .label-container,
-.monaco-workbench .part.editor .editor-group-container.empty {
-  -webkit-app-region: drag;
-}
-
-/* Only first editor should have extra left-padding to make room for traffic lights */
+/* macOS — Make room for traffic lights in first editor */
 .monaco-workbench.mac.nosidebar
   .part.editor
   > .content
