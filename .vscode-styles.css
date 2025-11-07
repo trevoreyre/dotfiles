@@ -82,6 +82,18 @@
  * is enabled to hide the default title bar. Otherwise, remove these styles.
  */
 
+/*
+ * Put a small gradient over the phantom Electron title bar when window is transparent
+ * https://github.com/electron/electron/issues/39959
+ */
+body > .monaco-workbench {
+  background: linear-gradient(
+    var(--vscode-editor-background) 0,
+    var(--vscode-editor-background) 31px,
+    rgb(from var(--vscode-editor-background) r g b / 70%) 64px
+  );
+}
+
 /* Make title bars draggable to move the window */
 .monaco-workbench .part.sidebar .title .title-label,
 .monaco-workbench .part.editor .title .label-container,
