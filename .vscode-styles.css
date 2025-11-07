@@ -81,42 +81,71 @@
  * Everything from here down only works if the Custom UI Style extension
  * is enabled to hide the default title bar. Otherwise, remove these styles.
  */
+.monaco-workbench.vs {
+  --window-background-color: rgb(from var(--vscode-editor-background) r g b / 60%);
+}
+
+.monaco-workbench.vs-dark {
+  --window-background-color: rgb(from var(--vscode-editor-background) r g b / 70%);
+}
 
 /*
- * Put a small gradient over the phantom Electron title bar when window is transparent
+ * Windows — Put a small gradient over the phantom title bar behind transparent window
  * https://github.com/electron/electron/issues/39959
  */
-body > .monaco-workbench {
+.monaco-workbench.windows {
   background: linear-gradient(
     var(--vscode-editor-background) 0,
     var(--vscode-editor-background) 31px,
-    rgb(from var(--vscode-editor-background) r g b / 70%) 64px
+    var(--window-background-color) 64px
   );
+}
+
+.monaco-workbench.mac {
+  background-color: var(--window-background-color);
 }
 
 /* Make title bars draggable to move the window */
 .monaco-workbench .part.sidebar .title .title-label,
+.monaco-workbench .part.activitybar,
 .monaco-workbench .part.editor .title .label-container,
 .monaco-workbench .part.editor .editor-group-container.empty {
   -webkit-app-region: drag;
+}
+
+.monaco-workbench .part.activitybar .monaco-action-bar {
+  -webkit-app-region: no-drag;
 }
 
 /* Expand draggable title label in side bar, without shrinking actions */
 .monaco-workbench .part.sidebar .composite.title .title-label {
   flex: 1;
 }
+
 .monaco-workbench .part.sidebar .composite.title .title-actions {
   flex: 0 0 0%;
 }
 
 /* macOS — Make room for traffic lights in side bar */
-.monaco-workbench.mac .part.sidebar:not(:has(> .header)) > .title > .title-label {
+.monaco-workbench.mac:not(:has(.activitybar.left))
+  .part.sidebar:not(:has(> .header))
+  > .title
+  > .title-label {
   padding-left: calc(var(--padding-macos-traffic-lights) + 20px);
+}
+
+.monaco-workbench.mac:has(.activitybar.left) .part.sidebar > .title > .title-label {
+  padding-left: 32px;
 }
 
 /* macOS — Make room for traffic lights in activity bar when positioned top of side bar */
 .monaco-workbench.mac .part.sidebar > .header {
   padding-left: calc(var(--padding-macos-traffic-lights) + 17px);
+}
+
+/* macOS — Make room for traffic lights in activity bar when positioned left */
+.monaco-workbench.mac .activitybar.left {
+  padding-top: 35px;
 }
 
 /* macOS — Make room for traffic lights in first editor */
@@ -129,9 +158,24 @@ body > .monaco-workbench {
   padding-left: var(--padding-macos-traffic-lights);
 }
 
+.monaco-workbench.mac.nosidebar:has(.activitybar.left)
+  .part.editor
+  > .content
+  .split-view-view:first-child
+  .editor-group-container
+  > .title:not(.tabs) {
+  padding-left: 20px;
+}
+
 /* macOS — Make room for traffic lights when bottom panel is maximized */
 .monaco-workbench.mac.nomaineditorarea.nosidebar .part.panel.bottom .composite.title {
   padding-left: calc(var(--padding-macos-traffic-lights) + 10px);
+}
+
+.monaco-workbench.mac.nomaineditorarea.nosidebar:has(.activitybar.left)
+  .part.panel.bottom
+  .composite.title {
+  padding-left: 22px;
 }
 
 /* Windows — Make room for title bar controls in last editor */
