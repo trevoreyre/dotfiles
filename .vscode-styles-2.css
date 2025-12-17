@@ -1,0 +1,730 @@
+:root {
+  --macos-width-traffic-lights: 65px;
+  --windows-width-window-controls: 138px;
+  --width-activity-bar: 48px;
+}
+
+/* Add a border between editors */
+.monaco-workbench
+  .part.editor
+  .monaco-split-view2.horizontal
+  > .monaco-scrollable-element
+  > .split-view-container
+  > .split-view-view:not(:first-child) {
+  border-left: 1px solid var(--vscode-panel-border);
+}
+
+.monaco-workbench
+  .part.editor
+  .monaco-split-view2.vertical
+  > .monaco-scrollable-element
+  > .split-view-container
+  > .split-view-view:not(:first-child) {
+  border-top: 1px solid var(--vscode-panel-border);
+}
+
+/* Force sticky header to take full width, so scroll area doesn't have awkward box shadows */
+.monaco-editor .sticky-widget {
+  width: 100% !important;
+}
+
+/* Bump find/replace widget down so the box shadow looks better */
+.monaco-editor .find-widget.find-widget.visible {
+  transform: translateY(16px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.monaco-editor .find-widget.find-widget {
+  transform: translateY(4px);
+  opacity: 0;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  pointer-events: none;
+}
+
+/* Bump terminal find/replace widget down as well */
+.monaco-workbench .simple-find-part.visible-transition {
+  top: 8px;
+  opacity: 1;
+}
+
+.monaco-workbench .simple-find-part {
+  top: 0;
+  opacity: 0;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  transition: top 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+/* Remove selection outline when you click on Explorer panel */
+.part.sidebar .monaco-list::before {
+  visibility: hidden;
+}
+
+/* Fix alignment of sidebar title */
+.monaco-workbench .part.sidebar > .title {
+  padding-left: 0;
+}
+
+/* Fix alignment of sidebar activity bar */
+.monaco-workbench .part.sidebar > .header-or-footer {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.monaco-workbench .part.sidebar > .header-or-footer .actions-container {
+  gap: 8px;
+}
+
+/*
+ * Everything from here down only works if the Custom UI Style extension
+ * is enabled to hide the default title bar. Otherwise, remove these styles.
+ */
+.monaco-workbench.vs {
+  --window-background-color: rgb(from var(--vscode-editor-background) r g b / 60%);
+}
+
+.monaco-workbench.vs-dark {
+  --window-background-color: rgb(from var(--vscode-editor-background) r g b / 70%);
+}
+
+/*
+ * Windows — Put a small gradient over the phantom title bar behind transparent window
+ * https://github.com/electron/electron/issues/39959
+ */
+/* .monaco-workbench.windows {
+  background: linear-gradient(
+    var(--vscode-editor-background) 0,
+    var(--vscode-editor-background) 31px,
+    var(--window-background-color) 64px
+  );
+} */
+
+.monaco-workbench.mac,
+.monaco-workbench.windows {
+  background-color: var(--window-background-color);
+}
+
+/* Make title bar, activity bar, and status bar transparent */
+.monaco-workbench .part.titlebar,
+.monaco-workbench .part.activitybar,
+.monaco-workbench .part.statusbar {
+  background-color: transparent !important;
+}
+
+/* Expand draggable title label in side bar, without shrinking actions */
+.monaco-workbench .part.sidebar .composite.title .title-label {
+  flex: 1;
+}
+
+.monaco-workbench .part.sidebar .composite.title .title-actions {
+  flex: 0 0 0%;
+}
+
+/* https://www.reddit.com/r/vscode/comments/1k4r9f0/rounded_ui_for_vscode_custom_css/ */
+/* https://github.com/mahmoud-asdf/vscodeCusotmTheme/tree/main */
+:root {
+  --border-radius: 16px;
+  --spacing: 8px;
+  --accent-color: #16b673;
+}
+
+/* #region-------rounded corners and spacing-------*/
+
+/* Windows - Make room for window controls in title bar */
+.monaco-workbench.windows .part.titlebar .titlebar-right:not(:has(.window-controls-container)) {
+  padding-right: var(--windows-width-window-controls) !important;
+}
+
+/* Activity bar spacing */
+.monaco-workbench .part.activitybar.left {
+  margin-left: calc(var(--spacing) / 2) !important;
+  margin-bottom: var(--spacing) !important;
+  height: calc(100% - var(--spacing)) !important;
+}
+
+.monaco-workbench .part.activitybar.left .content {
+  height: 100% !important;
+}
+
+/* Activity bar active tab highlight */
+.monaco-workbench
+  .part.activitybar.left
+  .monaco-action-bar
+  .action-item.checked
+  .active-item-indicator {
+  border-radius: var(--border-radius) !important;
+  background-color: var(--vscode-editor-background) !important;
+}
+
+.monaco-workbench
+  .part.activitybar.left
+  .monaco-action-bar
+  .action-item.checked
+  .active-item-indicator::before {
+  display: none !important;
+}
+
+/* Sidebar spacing */
+.monaco-workbench :is(.part.sidebar, .part.auxiliarybar) {
+  border-radius: var(--border-radius) !important;
+  height: calc(100% - var(--spacing)) !important;
+}
+
+.monaco-workbench :is(.part.sidebar.left, .part.auxiliarybar.left) {
+  margin-right: 0 !important;
+  /* margin-left: var(--spacing) !important; */
+  margin-left: calc(var(--spacing) * 1.5) !important;
+}
+
+.monaco-workbench :is(.part.sidebar.right, .part.auxiliarybar.right) {
+  margin-right: var(--spacing) !important;
+  margin-left: 0 !important;
+}
+
+.monaco-workbench :is(.part.sidebar, .part.auxiliarybar) * {
+  max-width: 100%;
+}
+
+/* Editor spacing */
+.monaco-workbench .part.editor {
+  --editor-width: calc(100% - var(--spacing) * 2);
+  --editor-height: 100%;
+  --margin-horizontal: calc(var(--spacing) * 2);
+  width: var(--editor-width);
+  height: var(--editor-height);
+  margin-right: calc(var(--margin-horizontal) / 2) !important;
+  margin-left: calc(var(--margin-horizontal) / 2) !important;
+  border-radius: var(--border-radius) !important;
+
+  /* -----some adjustments-----*/
+  > .content {
+    width: calc(100%) !important;
+
+    .editor-actions {
+      position: static !important;
+      margin-top: auto !important;
+      margin-bottom: auto !important;
+    }
+
+    &.content
+      > .grid-view-container
+      > .monaco-grid-view
+      > .monaco-grid-branch-node
+      > .monaco-split-view2.horizontal
+      > .monaco-scrollable-element
+      > .split-view-container
+      > .split-view-view.visible:last-of-type,
+    .monaco-split-view2.vertical
+      > .monaco-scrollable-element
+      > .split-view-container
+      > .split-view-view.visible:has(> .editor-group-container):has(
+        ~ .monaco-split-view2.horizontal
+      ),
+    &.content
+      > .grid-view-container
+      > .monaco-grid-view
+      > .monaco-grid-branch-node
+      > .monaco-split-view2.vertical
+      > .monaco-scrollable-element
+      > .split-view-container
+      > .split-view-view.visible {
+      .editor-group-container {
+        border-radius: var(--border-radius);
+
+        /* .monaco-diff-editor .editor.modified .sticky-widget:not(.peek),
+        .editor-instance > .monaco-editor .sticky-widget:not(.peek) {
+          width: calc(var(--editor-width) - 14px) !important;
+        } */
+
+        .monaco-diff-editor .editor.modified .decorationsOverviewRuler,
+        .monaco-diff-editor .editor.modified .scrollbar.vertical,
+        .editor-instance > .monaco-editor .decorationsOverviewRuler,
+        .editor-instance > .monaco-editor .editor-scrollable .scrollbar.vertical {
+          left: calc(var(--editor-width) - 14px);
+        }
+
+        .monaco-diff-editor .diffOverview {
+          left: unset !important;
+          right: 0px !important;
+          background-color: var(--vscode-editor-background) !important;
+        }
+
+        .zone-widget .peekview-widget {
+          width: calc(100% - 14px - var(--spacing)) !important;
+
+          .ref-tree.inline {
+            width: calc(100% - 14px - var(--spacing)) !important;
+          }
+
+          .scrollbar.vertical,
+          .decorationsOverviewRuler {
+            left: unset !important;
+            right: 0px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* TODO - Spacing between editors, maybe? Probably not, that sounds like a pain. */
+/* .monaco-workbench .part.editor > .content .editor-group-container {
+  margin-inline: calc(var(--spacing) / 2) !important;
+} */
+
+/* Bottom panel spacing */
+.monaco-workbench .part.panel.bottom {
+  border-radius: var(--border-radius) !important;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing) !important;
+  margin-right: var(--spacing) !important;
+  margin-left: var(--spacing) !important;
+  --panel-width: calc(100% - var(--spacing) * 2) !important;
+  --panel-height: calc(100% - var(--spacing) * 2) !important;
+  width: var(--panel-width);
+  height: var(--panel-height);
+
+  /* -----some adjustments----- */
+  .pane-body {
+    width: var(--panel-width) !important;
+
+    .monaco-list-row {
+      width: calc(100% - 10px);
+      margin-left: 5px;
+    }
+
+    &.integrated-terminal .tabs-container {
+      width: var(--panel-width) !important;
+
+      &:not(.has-text) .monaco-list-row {
+        background: none !important;
+      }
+
+      .monaco-list-row .terminal-tabs-entry.is-active::before {
+        display: none !important;
+      }
+    }
+
+    .repl:has(div.repl-tree.monaco-mouse-cursor-text.word-wrap) {
+      display: flex;
+      flex-direction: column-reverse;
+
+      .repl-input-wrapper {
+        position: absolute;
+      }
+    }
+  }
+}
+
+.monaco-workbench.windows.nomaineditorarea .part.panel.bottom {
+  margin-top: 0 !important;
+  --panel-height: calc(100% - var(--spacing)) !important;
+}
+
+.monaco-workbench .part.panel.bottom .composite.title {
+  align-items: center;
+}
+
+/* Status bar spacing */
+.monaco-workbench .part.statusbar {
+  position: relative !important;
+  top: calc(-1 * var(--spacing) / 2) !important;
+  opacity: 0.7;
+  padding-left: calc(var(--width-activity-bar) + var(--spacing)) !important;
+  padding-right: var(--spacing) !important;
+}
+
+/* #endregion-------rounded corners and spacing-------*/
+
+/* #region-------highlight active------*/
+
+/* highlight active editor tab */
+body .monaco-workbench .part.editor {
+  .tabs-container {
+    padding: 7px 7px 7px 7px !important;
+
+    .tab.selected {
+      border-radius: 7px !important;
+      /* background-color: rgb(from var(--accent-color) r g b / 0.22) !important;
+      outline: 1px solid rgb(from var(--accent-color) r g b / 0) !important;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important; */
+    }
+
+    .tab-border-top-container,
+    .tab-border-bottom-container {
+      display: none !important;
+    }
+  }
+
+  .editor-container {
+    height: calc(100% - 35px - 14px) !important;
+
+    .monaco-editor
+      .overflow-guard
+      .monaco-scrollable-element.editor-scrollable
+      .invisible.scrollbar.vertical,
+    .monaco-editor
+      .overflow-guard
+      .monaco-scrollable-element.editor-scrollable
+      .decorationsOverviewRuler,
+    .monaco-editor .overflow-guard .monaco-scrollable-element.editor-scrollable,
+    &:not(:has(.suggest-input-container)) .monaco-editor .overflow-guard,
+    &:not(:has(.zone-widget)) .monaco-editor {
+      height: calc(100%) !important;
+    }
+  }
+}
+
+/* gutter current line highlight */
+/* body .monaco-workbench .part.editor .monaco-editor .margin-view-overlays .current-line-margin,
+body
+  .monaco-workbench
+  .part.editor
+  .monaco-editor
+  .margin-view-overlays
+  .current-line-exact-margin {
+  background-color: rgb(from var(--accent-color) r g b / 0.11) !important;
+  outline: 1px solid rgb(from var(--accent-color) r g b / 0) !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+  border-radius: 7px !important;
+  max-height: 95% !important;
+  max-width: 77% !important;
+  margin-left: 7% !important;
+} */
+
+/* activitybar highlight active tab */
+/* body .monaco-workbench .part.activitybar ul[role='tablist'] {
+  .action-item.checked .action-label::after {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    border-radius: 6px;
+    content: '';
+    background-color: rgb(from var(--accent-color) r g b / 0.22);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+  }
+} */
+
+/* highlight tabs for acitvitybar top */
+/* body .monaco-workbench .part.auxiliarybar ul[role='tablist'] .action-item,
+body .monaco-workbench .part.sidebar ul[role='tablist'] .action-item {
+  &.action-item.checked .action-label::after {
+    content: '';
+    width: 110%;
+    height: 75%;
+    position: absolute;
+    left: 1px !important;
+    border-radius: 6px;
+    background-color: rgb(from var(--accent-color) r g b / 0.22);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+  }
+
+  .active-item-indicator {
+    display: none;
+  }
+} */
+
+/* sidebar active headers highlight */
+/* body .monaco-workbench .part.sidebar .pane-header.expanded,
+body .monaco-workbench .part.auxiliarybar .pane-header.expanded {
+  background-color: rgb(from var(--accent-color) r g b / 0.11) !important;
+  border: 1px solid var(--vscode-sideBar-background) !important;
+  box-sizing: content-box;
+  border-radius: 6px !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+} */
+
+/* panel tabs */
+/* body .monaco-workbench .part.panel .action-item.checked {
+  height: 70%;
+  border-radius: 6px !important;
+  background-color: rgb(from var(--accent-color) r g b / 0.22) !important;
+  outline: 1px solid rgb(from var(--accent-color) r g b / 0) !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+
+  .active-item-indicator {
+    display: none !important;
+  }
+} */
+
+/* extension */
+/* .extension-editor
+  > .body
+  > .navbar
+  > .monaco-action-bar
+  > .actions-container
+  > .action-item
+  > .action-label.checked::after {
+  content: '';
+  width: 95%;
+  height: 75%;
+  position: absolute;
+  top: 3px !important;
+  left: 2px !important;
+  border-radius: 6px;
+  background-color: rgb(from var(--accent-color) r g b / 0.22);
+  outline: 1px solid rgb(from var(--accent-color) r g b / 0) !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+} */
+
+/* #endregion-------highlight active------*/
+
+/* #region-------scrollbar sliders and minimap-------*/
+.scrollbar.vertical {
+  .slider {
+    border-radius: 200px !important;
+    max-width: 100% !important;
+    min-width: 3px !important;
+    width: 30% !important;
+    cursor: grab !important;
+    left: 40% !important;
+  }
+
+  &:hover .slider {
+    border-radius: 400px !important;
+    max-width: 100% !important;
+    min-width: 3px !important;
+    width: 50% !important;
+    cursor: grab !important;
+    left: 30% !important;
+  }
+
+  &:active .slider {
+    cursor: grabbing !important;
+  }
+}
+
+.part.sidebar .pane-body .scrollbar.vertical {
+  .slider {
+    left: 60% !important;
+  }
+
+  &:hover .slider {
+    left: 40% !important;
+  }
+}
+
+.scrollbar.horizontal {
+  .slider {
+    border-radius: 200px !important;
+    max-height: 100% !important;
+    min-height: 3px !important;
+    height: 30% !important;
+    cursor: grab !important;
+  }
+
+  &:hover .slider {
+    border-radius: 400px !important;
+    max-height: 100% !important;
+    min-height: 3px !important;
+    height: 60% !important;
+    cursor: grab !important;
+  }
+
+  &:active .slider {
+    cursor: grabbing !important;
+  }
+}
+
+body .monaco-workbench .part.editor > .content .monaco-diff-editor .diffOverview .diffViewport,
+.minimap-slider {
+  border-radius: 4px !important;
+  cursor: grab !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important;
+
+  &:active {
+    cursor: grabbing !important;
+  }
+}
+
+/* #endregion-------scrollbar sliders and minimap-------*/
+
+/* #region-------list rows highlight-------*/
+
+body .monaco-workbench {
+  .monaco-tree-sticky-row.monaco-list-row,
+  .monaco-list-rows .monaco-list-row {
+    /* width: calc(100% - 10px) !important;
+    margin-left: 5px !important; */
+
+    &:not(.force-no-hover):hover,
+    &.focused,
+    &.selected {
+      /* background-color: rgb(from var(--accent-color) r g b / 0.11) !important; */
+      /* outline: 1px solid var(--vscode-editor-background) !important; */
+      border-radius: 6px !important;
+      /* box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important; */
+      /* border: .5px solid transparent !important;
+      background-clip: padding-box !important;
+      left: -.5px !important; */
+    }
+  }
+
+  /* fixes for list rows highlight */
+
+  /* .part.panel .pane-body.integrated-terminal .tabs-container:not(.has-text) .monaco-list-row,
+  .quick-input-widget .quick-input-list .monaco-list-rows .monaco-list-row,
+  .notifications-toasts .monaco-list-row {
+    width: calc(100%) !important;
+    margin-left: 0px !important;
+  }
+
+  .zone-widget .body .ref-tree .monaco-list-rows .monaco-list-row,
+  .notifications-center .monaco-list-rows .monaco-list-row,
+  .notification-toast .monaco-list-rows .monaco-list-row,
+  .editor-widget.suggest-widget .monaco-list-rows .monaco-list-row,
+  .quick-input-widget .quick-input-list .monaco-list-rows .monaco-list-row {
+    &:not(.force-no-hover):hover,
+    &.focused,
+    &.selected {
+      outline: 1px solid var(--vscode-quickInput-background) !important;
+    }
+  } */
+
+  .part.panel .pane-body.integrated-terminal .tabs-container:not(.has-text) .monaco-list-row,
+  .profiles-editor .contents-view .profile-body .monaco-list-rows .monaco-list-row:hover,
+  .profiles-editor .contents-view .profile-body .monaco-list-rows .monaco-list-row.focused,
+  .profiles-editor .contents-view .profile-body .monaco-list-rows .monaco-list-row.selected,
+  .settings-tree-container .monaco-list-rows .monaco-list-row:hover,
+  .settings-tree-container .monaco-list-rows .monaco-list-row.focused,
+  .settings-tree-container .monaco-list-rows .monaco-list-row.selected {
+    /* background: none !important;
+    box-shadow: none !important; */
+  }
+
+  .part.editor
+    .editor-container
+    .keybindings-editor
+    .keybindings-body
+    .monaco-list-row
+    .monaco-table-td
+    .actions {
+    /* margin-left: -10px; */
+  }
+}
+
+/* #endregion-------list rows highlight-------*/
+
+/* #region-------miscellaneous tweaks-------*/
+
+/* Sidebar bigger title */
+.monaco-workbench :is(.part.sidebar, .part.auxiliarybar) .title-label h2 {
+  font-size: 14px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+}
+
+/* #region-------rounded corners for many things like lists and inputs-------*/
+.scm-editor,
+.monaco-button,
+.monaco-select-box,
+.monaco-inputbox,
+.monaco-hover,
+.monaco-editor .find-widget,
+.suggest-input-container,
+.suggest-details,
+.editor-widget.suggest-widget,
+.chat-input-container,
+.notification-fade-in-done,
+.notification-toast,
+.notification-toast > .notifications-list-container,
+.notification-toast > .notifications-list-container > .monaco-list,
+.notifications-center,
+.monaco-menu .action-item a.focused,
+.monaco-menu .action-item a:hover,
+.part.sidebar .pane-header,
+.part.auxiliarybar .pane-header,
+.monaco-list.mouse-support,
+.monaco-list-row.focused,
+.monaco-list-row.selected,
+.monaco-list-row {
+  border-radius: calc(--border-radius / 2) !important;
+  /* margin-right: 4px !important; */
+  /* max-width: calc(100% - 4px) !important; */
+}
+
+.cdr {
+  border-radius: 3px;
+}
+
+.monaco-button-dropdown .monaco-button-dropdown-separator {
+  display: none !important;
+}
+
+/* #endregion-------rounded corners for lists and inputs-------*/
+
+/* #endregion-------little tweaks-------*/
+
+/* #region-------small fixes and optimizations-------*/
+
+/* #region-------vscode-------*/
+
+.monaco-split-view2.horizontal
+  > .monaco-scrollable-element
+  > .split-view-container
+  > .split-view-view.visible:last-of-type
+  .editor-group-container {
+  width: var(--editor-width);
+}
+
+body
+  .monaco-workbench
+  .part.editor
+  .content
+  > .grid-view-container
+  > .monaco-grid-view
+  > .monaco-grid-branch-node
+  .monaco-split-view2.horizontal
+  > .monaco-scrollable-element
+  > .split-view-container
+  > .split-view-view.visible:has(~ .split-view-view.visible) {
+  .editor-group-container {
+    /* width: unset;
+    border-radius: var(--border-radius); */
+
+    /* .monaco-diff-editor .editor.modified .sticky-widget:not(.peek),
+    .editor-instance > .monaco-editor .sticky-widget:not(.peek) {
+      width: calc(var(--editor-width) - 14px) !important;
+    } */
+
+    .monaco-diff-editor .editor.modified .decorationsOverviewRuler,
+    .monaco-diff-editor .editor.modified .scrollbar.vertical,
+    .editor-instance > .monaco-editor .decorationsOverviewRuler,
+    .editor-instance > .monaco-editor .editor-scrollable .scrollbar.vertical {
+      left: unset !important;
+    }
+
+    .monaco-editor .minimap {
+      left: unset !important;
+      right: calc(var(--margin-horizontal) - 6px - 1px) !important;
+    }
+
+    .monaco-diff-editor .diffOverview {
+      left: unset !important;
+      right: 0px !important;
+      background-color: var(--vscode-editor-background) !important;
+    }
+
+    .zone-widget .peekview-widget {
+      width: calc(100% - 14px - var(--spacing)) !important;
+
+      .ref-tree.inline {
+        width: calc(100% - 14px - var(--spacing)) !important;
+      }
+
+      .scrollbar.vertical,
+      .decorationsOverviewRuler {
+        left: unset !important;
+        right: 0px !important;
+      }
+    }
+  }
+}
+
+/* #endregion-------vscode-------*/
+
+/* #endregion-------small fixes and optimizations-------*/
