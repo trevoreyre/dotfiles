@@ -162,9 +162,7 @@
   .monaco-action-bar
   .action-item.checked
   .active-item-indicator {
-  /* border-radius: var(--border-radius) !important;
-  background-color: var(--vscode-editor-background) !important; */
-  display: none !important;
+  background-color: transparent !important;
 }
 
 .monaco-workbench
@@ -172,7 +170,11 @@
   .monaco-action-bar
   .action-item.checked
   .active-item-indicator::before {
-  display: none !important;
+  border-left-width: 4px !important;
+  height: calc(100% - 24px) !important;
+  top: 12px !important;
+  left: 4px !important;
+  border-radius: 999px !important;
 }
 
 /* Sidebar spacing */
@@ -242,10 +244,10 @@
       .editor-group-container {
         border-radius: var(--border-radius);
 
-        /* .monaco-diff-editor .editor.modified .sticky-widget:not(.peek),
+        .monaco-diff-editor .editor.modified .sticky-widget:not(.peek),
         .editor-instance > .monaco-editor .sticky-widget:not(.peek) {
           width: calc(var(--editor-width) - 14px) !important;
-        } */
+        }
 
         .monaco-diff-editor .editor.modified .decorationsOverviewRuler,
         .monaco-diff-editor .editor.modified .scrollbar.vertical,
@@ -482,9 +484,9 @@ body .monaco-workbench .part.auxiliarybar .pane-header.expanded {
 /* #endregion-------highlight active------*/
 
 /* #region-------scrollbar sliders and minimap-------*/
-.scrollbar.vertical {
+/* .scrollbar.vertical {
   .slider {
-    border-radius: 200px !important;
+    border-radius: 999px !important;
     max-width: 100% !important;
     min-width: 3px !important;
     width: 30% !important;
@@ -524,17 +526,15 @@ body .monaco-workbench .part.auxiliarybar .pane-header.expanded {
     min-height: 3px !important;
     height: 60% !important;
   }
+} */
+
+.scrollbar .slider {
+  border-radius: 999px !important;
 }
 
 body .monaco-workbench .part.editor > .content .monaco-diff-editor .diffOverview .diffViewport,
 .minimap-slider {
   border-radius: var(--border-radius-sm) !important;
-  /* cursor: grab !important; */
-  /* box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 25px -5px, rgba(0, 0, 0, 0.25) 0px 10px 10px -5px !important; */
-
-  /* &:active {
-    cursor: grabbing !important;
-  } */
 }
 
 /* #endregion-------scrollbar sliders and minimap-------*/
@@ -613,25 +613,25 @@ body
       width: calc(var(--editor-width) - 14px) !important;
     } */
 
-    .monaco-diff-editor .editor.modified .decorationsOverviewRuler,
+    /* .monaco-diff-editor .editor.modified .decorationsOverviewRuler,
     .monaco-diff-editor .editor.modified .scrollbar.vertical,
     .editor-instance > .monaco-editor .decorationsOverviewRuler,
     .editor-instance > .monaco-editor .editor-scrollable .scrollbar.vertical {
       left: unset !important;
-    }
+    } */
 
-    .monaco-editor .minimap {
+    /* .monaco-editor .minimap {
       left: unset !important;
       right: calc(var(--margin-horizontal) - 6px - 1px) !important;
-    }
+    } */
 
-    .monaco-diff-editor .diffOverview {
+    /* .monaco-diff-editor .diffOverview {
       left: unset !important;
       right: 0px !important;
       background-color: var(--vscode-editor-background) !important;
-    }
+    } */
 
-    .zone-widget .peekview-widget {
+    /* .zone-widget .peekview-widget {
       width: calc(100% - 14px - var(--spacing)) !important;
 
       .ref-tree.inline {
@@ -643,7 +643,7 @@ body
         left: unset !important;
         right: 0px !important;
       }
-    }
+    } */
   }
 }
 
