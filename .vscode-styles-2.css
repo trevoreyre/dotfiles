@@ -52,7 +52,9 @@
   opacity: 0;
   border: 1px solid var(--vscode-panel-border);
   border-radius: var(--border-radius-sm) !important;
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
   pointer-events: none;
 }
 
@@ -67,7 +69,9 @@
   opacity: 0;
   border: 1px solid var(--vscode-panel-border);
   border-radius: var(--border-radius-sm) !important;
-  transition: top 0.2s ease-out, opacity 0.2s ease-out;
+  transition:
+    top 0.2s ease-out,
+    opacity 0.2s ease-out;
 }
 
 /* Remove selection outline when you click on Explorer panel */
@@ -278,6 +282,22 @@
       }
     }
   }
+}
+
+/**
+ * TODO - This removes box shadows introduced in experimental new 2026 themes.
+ * This occurred in v1.111, March 2026 update.
+ *
+ * https://github.com/microsoft/vscode/issues/300602
+ *
+ * Hopefully they will make those shadows customizable by themes soon, and then
+ * this can be removed.
+ */
+.monaco-workbench .part.editor::after {
+  box-shadow: none !important;
+}
+.monaco-workbench .part.titlebar {
+  box-shadow: none !important;
 }
 
 /* TODO - Spacing between editors, maybe? Probably not, that sounds like a pain. */
