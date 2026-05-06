@@ -13,6 +13,16 @@ You can use [this dotfiles-install.sh script](https://gist.github.com/trevoreyre
 curl -Lks https://gist.githubusercontent.com/trevoreyre/c4170c6023e94f86cac1d8025aa3176d/raw | /bin/bash
 ```
 
+## Shell support
+
+Both bash and zsh are supported with near-identical settings:
+
+| Bash | Zsh | Purpose |
+|------|-----|---------|
+| `.bash_profile` | `.zprofile` | Login shell setup (e.g. Volta PATH) |
+| `.bashrc` | `.zshrc` | Interactive shell settings (aliases, prompt, etc.) |
+| `.bash_env` | `.zsh_env` | Optional private environment variables |
+
 ## Updating dotfiles
 
 Update as you would normally, using `dotfiles` in place of `git`
